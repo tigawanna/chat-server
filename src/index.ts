@@ -16,7 +16,7 @@ import cors from 'cors';
 
 
 (async () => {
-  const PORT = 4000;
+  const PORT = 4000 || process.env.PORT;
   const app = express();
 
   const allowedOrigins = ['http://localhost:3000',
