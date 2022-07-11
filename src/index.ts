@@ -16,7 +16,8 @@ import cors from 'cors';
 
 
 (async () => {
-  const PORT = 4000 || process.env.PORT;
+  require('dotenv').config();
+  const PORT =  process.env.PORT;
   const app = express();
 
   const allowedOrigins = ['http://localhost:3000',
