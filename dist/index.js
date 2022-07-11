@@ -10,7 +10,6 @@ const apollo_server_express_1 = require("apollo-server-express");
 const subscriptions_transport_ws_1 = require("subscriptions-transport-ws");
 const graphql_1 = require("graphql");
 const graphql_2 = require("graphql");
-const mongoose_1 = __importDefault(require("mongoose"));
 const type_graphql_1 = require("type-graphql");
 const ChatResolver_1 = require("./resolvers/ChatResolver");
 const UserResolver_1 = require("./resolvers/UserResolver");
@@ -46,9 +45,6 @@ const cors_1 = __importDefault(require("cors"));
     });
     await server.start().catch(e => { console.log("error starting server===== ", e); });
     server.applyMiddleware({ app });
-    var uri = "mongodb://localhost:27017/chat";
-    mongoose_1.default.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true })
-        .then(() => console.log("connected to newmango db"));
     subscriptions_transport_ws_1.SubscriptionServer.create({ schema, execute: graphql_2.execute, subscribe: graphql_1.subscribe }, { server: httpServer, path: server.graphqlPath });
     httpServer.listen(PORT, () => {
         console.log(`🚀 Query endpoint ready at http://localhost:${PORT}${server.graphqlPath}`);

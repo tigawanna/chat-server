@@ -15,48 +15,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChatResolver = void 0;
 const Chat_1 = require("../entities/Chat");
 const type_graphql_1 = require("type-graphql");
+const uuid_1 = require("uuid");
 const NEWCHAT = "NEW_CHAT_ADDED";
 let ChatResolver = class ChatResolver {
     async chats() {
-        const options = {
-            page: 1,
-            limit: 2,
-            collation: {
-                locale: 'en',
-            },
-        };
-        const chats = await Chat_1.ChatModel.paginate({}, options);
-        console.log("holt output ======", chats);
-        return chats.docs;
+        return [];
     }
     async createChat(input, publish) {
-        const chat = new Chat_1.ChatModel({
+        const chat = {
+            id: (0, uuid_1.v4)(),
             message: input,
-        });
-        await chat.save().then(async (e) => {
-            console.log("user response====== ", e);
-            await publish(e);
-        });
+            time: new Date()
+        };
+        console.log("new chat created ==== ", chat);
+        await publish(chat);
         return chat;
     }
-    async deleteChat(id) {
-        await Chat_1.ChatModel.findByIdAndDelete({ _id: id })
-            .catch(e => {
-            console.log("is delete error ======", e);
-            return false;
-        });
-        return true;
-    }
-    async updateChat(id, input) {
-        const updatedChat = await Chat_1.ChatModel.findByIdAndUpdate({ _id: id }, { message: input }, { new: true })
-            .catch(e => {
-            console.log("is delete error ======", e);
-        });
-        return updatedChat;
-    }
-    newChat({ _id, message, createdAt, updatedAt }) {
-        console.log("subscription firing ===== ", { _id, message, createdAt, updatedAt });
-        return { _id, message, createdAt, updatedAt };
+    newChat({ id, message, time }) {
+        console.log("subscription firing ===== ", { id, message, time });
+        return { id, message, time };
     }
 };
 __decorate([
@@ -73,21 +50,6 @@ __decorate([
     __metadata("design:paramtypes", [String, Function]),
     __metadata("design:returntype", Promise)
 ], ChatResolver.prototype, "createChat", null);
-__decorate([
-    (0, type_graphql_1.Mutation)(() => Boolean),
-    __param(0, (0, type_graphql_1.Arg)('id', () => String)),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], ChatResolver.prototype, "deleteChat", null);
-__decorate([
-    (0, type_graphql_1.Mutation)(() => Chat_1.Chat),
-    __param(0, (0, type_graphql_1.Arg)('id', () => String)),
-    __param(1, (0, type_graphql_1.Arg)("input")),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, String]),
-    __metadata("design:returntype", Promise)
-], ChatResolver.prototype, "updateChat", null);
 __decorate([
     (0, type_graphql_1.Subscription)({ topics: NEWCHAT }),
     __param(0, (0, type_graphql_1.Root)()),

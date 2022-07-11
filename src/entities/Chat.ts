@@ -5,25 +5,25 @@ import { Field } from 'type-graphql';
 import mongoose from 'mongoose'
 import mongoosePaginate from 'mongoose-paginate-v2'
 
+
+
 @ObjectType()
 export class Chat {
-  @Field(()=>String,{nullable:false})
-  _id: ObjectId;
-
-  @Field(()=>String,{nullable:false})
-  @Property({ })
-  message: string;
+  @Field()
+  id:string;
 
   @Field()
-  createdAt: Date 
-
+  message:string;
+  
   @Field()
-  updatedAt: Date 
-
-  // @Field(()=>String,{nullable:false})
-  // @Property()
-  // user: string;
+  time:Date;
 }
+
+
+
+
+
+
 const ChatSchema = new mongoose.Schema({
   _id: {type:ObjectId,auto:true},
   message: {type:String},

@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChatModel = exports.Chat = void 0;
-const typegoose_1 = require("@typegoose/typegoose");
 const mongodb_1 = require("mongodb");
 const type_graphql_1 = require("type-graphql");
 const type_graphql_2 = require("type-graphql");
@@ -22,22 +21,17 @@ const mongoose_paginate_v2_1 = __importDefault(require("mongoose-paginate-v2"));
 let Chat = class Chat {
 };
 __decorate([
-    (0, type_graphql_2.Field)(() => String, { nullable: false }),
-    __metadata("design:type", mongodb_1.ObjectId)
-], Chat.prototype, "_id", void 0);
+    (0, type_graphql_2.Field)(),
+    __metadata("design:type", String)
+], Chat.prototype, "id", void 0);
 __decorate([
-    (0, type_graphql_2.Field)(() => String, { nullable: false }),
-    (0, typegoose_1.prop)({}),
+    (0, type_graphql_2.Field)(),
     __metadata("design:type", String)
 ], Chat.prototype, "message", void 0);
 __decorate([
     (0, type_graphql_2.Field)(),
     __metadata("design:type", Date)
-], Chat.prototype, "createdAt", void 0);
-__decorate([
-    (0, type_graphql_2.Field)(),
-    __metadata("design:type", Date)
-], Chat.prototype, "updatedAt", void 0);
+], Chat.prototype, "time", void 0);
 Chat = __decorate([
     (0, type_graphql_1.ObjectType)()
 ], Chat);

@@ -6,7 +6,7 @@ import { ApolloServer } from 'apollo-server-express';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { subscribe } from 'graphql';
 import { execute } from 'graphql';
-import mongoose  from 'mongoose';
+// import mongoose  from 'mongoose';
 import {buildSchema} from 'type-graphql'
 import { ChatResolver } from './resolvers/ChatResolver';
 import { UserResolver } from './resolvers/UserResolver';
@@ -21,7 +21,7 @@ import cors from 'cors';
 
   const allowedOrigins = ['http://localhost:3000',
   'http://localhost:3001',
-  'https://studio.apollographql.com'];
+  'https://studio.apollographql.com','https://tigawanna.github.io/chat-client/'];
   const corsOptions = {
   credentials: true,
     origin: function(origin, callback){
@@ -51,15 +51,15 @@ import cors from 'cors';
   await server.start().catch(e=>{console.log("error starting server===== ",e)})
   server.applyMiddleware({ app });
 
-  var uri = "mongodb://localhost:27017/chat";
-  //@ts-ignore
-//   mongoose.connect(uri,function(){
-//     /* Drop the DB */
-//     mongoose.connection.db.dropDatabase();
-// });
+//   let uri = "mongodb://localhost:27017/chat";
+//   //@ts-ignore
+// //   mongoose.connect(uri,function(){
+// //     /* Drop the DB */
+// //     mongoose.connection.db.dropDatabase();
+// // });
 
-  mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true })
-  .then(()=>console.log("connected to newmango db"))
+//   mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true })
+//   .then(()=>console.log("connected to newmango db"))
 
 
   SubscriptionServer.create(
