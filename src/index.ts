@@ -44,6 +44,10 @@ import cors from 'cors';
     resolvers:[UserResolver,ChatResolver],
     validate:false
 })
+
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
   
   const server = new ApolloServer({
     schema,
